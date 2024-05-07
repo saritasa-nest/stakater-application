@@ -14,12 +14,12 @@ applicationName: "application"
 
 ##########################################################
 # Global labels
-# These labels will be added on all resources, 
-# and you can add additional labels from below 
+# These labels will be added on all resources,
+# and you can add additional labels from below
 # on individual resource
 ##########################################################
-  
-cronJob: 
+
+cronJob:
   enabled: false
   jobs:
     # db-migration:
@@ -27,18 +27,18 @@ cronJob:
     #   env: 
     #     KEY:
     #       value: VALUE
-    #   image: 
+    #   image:
     #     repository: docker.io/nginx
     #     tag: v1.0.0
     #     digest: '' # if set to a non empty value, digest takes precedence on the tag
     #     imagePullPolicy: IfNotPresent
     #   command: ["/bin/bash"]
     #   args: ["-c","sleep 5000"]
-    #   resources:  
+    #   resources:
     #     requests:
     #         memory: 5Gi
     #         cpu: 1
-  
+
 ##########################################################
 # Deployment
 ##########################################################
@@ -56,9 +56,9 @@ deployment:
   # Reload deployment if configMap/secret updates
   reloadOnChange: true
 
-  # Select nodes to deploy which matches the following labels  
+  # Select nodes to deploy which matches the following labels
   nodeSelector:
-    # cloud.google.com/gke-nodepool: default-pool  
+    # cloud.google.com/gke-nodepool: default-pool
 
   # Init containers which runs before the app container
   hostAliases:
@@ -81,9 +81,9 @@ deployment:
   # Additional labels for Deployment
   additionalLabels:
     # key: value
-  
+
   # Additional label added on pod which is used in Service's Label Selector
-  podLabels: 
+  podLabels:
     # env: prod
 
   # Annotations on deployments
@@ -92,7 +92,7 @@ deployment:
   # Additional Pod Annotations added on pod created by this Deployment
   additionalPodAnnotations:
     # key: value
-  
+
   # Annotations for fluentd Configurations
   fluentdConfigAnnotations:
     # fluentd:
@@ -100,7 +100,7 @@ deployment:
     #   timeFormat: world
 
   # Replicas to be created
-  replicas: 
+  replicas:
 
   # Secrets used to pull image
   imagePullSecrets: ""
@@ -139,7 +139,7 @@ deployment:
 #       persistentVolumeClaim:
 #         claimName: claim-name
 
-  # Mount path for Volumes 
+  # Mount path for Volumes
   volumeMounts:
     # volume-name:
     #    mountPath: path
@@ -147,6 +147,9 @@ deployment:
 
     # volume-name-2:
     #    mountPath: path-2
+
+# priorityClassName defines the priority class for pod scheduling
+  priorityClassName:
 
   # Taint tolerations for nodes
   tolerations:
@@ -191,7 +194,7 @@ deployment:
   revisionHistoryLimit: 2
 
   # Image of the app container
-  image: 
+  image:
     repository: repository/image-name
     tag: ''
     digest: '' # if set to a non empty value, digest takes precedence on the tag
@@ -248,7 +251,7 @@ deployment:
     readOnlyRootFilesystem: true
     runAsNonRoot: true
   
-  openshiftOAuthProxy: 
+  openshiftOAuthProxy:
     enabled: false
     port: 8080   # Port on which application is running inside container
     secretName: "openshift-oauth-proxy-tls"
@@ -261,12 +264,10 @@ deployment:
   #   imagePullPolicy: IfNotPresent
   #   command: ['/bin/sh']
 
-
   # Security Context for the pod
-
   securityContext:
     # fsGroup: 2000
-  
+
   # Command for primary container
   command: []
 
@@ -290,6 +291,13 @@ deployment:
 
   # Graceful termination timeout
   terminationGracePeriodSeconds:
+
+  # Default lifecycle configuration
+  lifecycle: {}
+    # Example for a preStop hook:
+    # preStop:
+    #   exec:
+    #     command: ["/bin/bash", "-c", "sleep 20"]
 
 ##########################################################
 # Add Storage volumes to the pods
@@ -335,7 +343,7 @@ service:
 #       kubernetes.io/ingress.class: external-ingress
 #       ingress.kubernetes.io/rewrite-target: /
 #       ingress.kubernetes.io/force-ssl-redirect: true
-  
+
   ports:
     - port: 8080
       name: http
@@ -343,7 +351,7 @@ service:
       targetPort: 8080
   type: ClusterIP
 
-  # Set to 'None' will make this service headless 
+  # Set to 'None' will make this service headless
   clusterIP:
 
 ##########################################################
@@ -351,7 +359,7 @@ service:
 ##########################################################
 ingress:
   enabled: false
-  
+
   # Name of the ingress class
   ingressClassName: ''
 
@@ -364,7 +372,7 @@ ingress:
   # List of host addresses to be exposed by this Ingress
   hosts:
     - host: chart-example.local
-      paths: 
+      paths:
       - path: /
       #  pathType: ''
       #  serviceName: ''
@@ -402,8 +410,8 @@ route:
   
   # If no host is added then openshift inserts the default hostname. To Add host explicitly, use host attribute
   host:
-  
-  path: 
+
+  path:
   # Port of the service that serves pods
   port:
     targetPort: http
@@ -439,14 +447,14 @@ secretProviderClass:
   objects: 
     #- objectName: MONGO_HOST
     #  secretPath: testing/data/mongoDb
-    #  secretKey: MONGO_HOST  
+    #  secretKey: MONGO_HOST
   secretObjects:
     #- data:
     #  - key: MONGO_HOST
     #    objectName: host
     #  secretName: secret-mongo-host
-    #  type: Opaque  
-  
+    #  type: Opaque
+
 ##########################################################
 # Expose Application on Forecastle Dashboard
 # https://github.com/stakater/Forecastle
@@ -456,7 +464,7 @@ forecastle:
 
   # Add additional labels on Forecastle Custom Resource
   additionalLabels:
-  
+
   # URL of the icon for the custom app
   icon: https://raw.githubusercontent.com/stakater/ForecastleIcons/master/stakater-big.png
   
@@ -468,7 +476,7 @@ forecastle:
 
   # Add properties to Custom Resource
   properties:
-  
+
   # Whether app is network restricted or not
   networkRestricted: false
 
@@ -486,7 +494,7 @@ rbac:
     # Additional Labels on service account
     additionalLabels:
       # key: value
-    
+
     # Annotations on service account 
     annotations:
       # key: value
@@ -533,9 +541,9 @@ configMap:
 ##########################################################
 sealedSecret:
   enabled: false
-  additionalLabels: 
+  additionalLabels:
     #key: value
-  annotations: 
+  annotations:
     #key: value
   files:
 #  #nameSuffix of sealedSecret
@@ -556,9 +564,9 @@ sealedSecret:
 ##########################################################
 secret:
   enabled: false
-  additionalLabels: 
+  additionalLabels:
     # key: value
-  annotations: 
+  annotations:
     # key: value
   files:
 #  nameSuffix of Secret
@@ -584,7 +592,7 @@ secret:
 ##########################################################
 serviceMonitor:
   enabled: false
-  
+
   # Additional labels
   additionalLabels:
     # key: value
@@ -603,13 +611,13 @@ serviceMonitor:
 # HPA - Horizontal Pod Autoscaling
 ##########################################################
 autoscaling:
-# enabled is a boolean flag for enabling or disabling autoscaling 
+# enabled is a boolean flag for enabling or disabling autoscaling
   enabled: false
 # additionalLabels defines additional labels
-  additionalLabels: 
+  additionalLabels:
     # key: value
 # annotations defines annotations in key value pair
-  annotations: 
+  annotations:
     # key: value
 # minReplicas sets the minimum number of replicas
   minReplicas: 1
@@ -620,13 +628,13 @@ autoscaling:
   - type: Resource
     resource:
       name: cpu
-      target: 
+      target:
          type: Utilization
          averageUtilization: 60
   - type: Resource
     resource:
       name: memory
-      target: 
+      target:
          type: Utilization
          averageUtilization: 60
 
@@ -637,23 +645,23 @@ vpa:
 # enabled is a boolean flag for enabling or disabling vpa 
   enabled: false
 # additionalLabels defines additional labels
-  additionalLabels: 
+  additionalLabels:
     # key: value
 # annotations defines annotations in key value pair
-  annotations: 
+  annotations:
     # key: value
 # container policies for individual containers.
   containerPolicies: []
   updatePolicy:
     updateMode: Auto
-    
+
 ##########################################################
 # EndpointMonitor for IMC
 # https://github.com/stakater/IngressMonitorController
 ##########################################################
 endpointMonitor:
   enabled: false
-  
+
   # Additional labels
   additionalLabels:
     # key: value
@@ -667,7 +675,7 @@ endpointMonitor:
 ##########################################################
 certificate:
   enabled: false
-  
+
   # Additional labels
   additionalLabels:
     # key: value
@@ -726,12 +734,12 @@ certificate:
       name: test-creds
 
 ##########################################################
-# AlertmanagerConfig object for defining application 
+# AlertmanagerConfig object for defining application
 # specific alertmanager configurations
 ##########################################################
 alertmanagerConfig:
   enabled: false
-  
+
   # AlertmanagerConfig selectionLabels to specify label to be picked up by Alertmanager to add it to base config. Read more about it at [https://docs.openshift.com/container-platform/4.7/rest_api/monitoring_apis/alertmanager-monitoring-coreos-com-v1.html] under .spec.alertmanagerConfigSelector
   selectionLabels:
     alertmanagerConfig: "workload"
@@ -761,12 +769,12 @@ alertmanagerConfig:
     #   equal: ['cluster', 'service']
 
 ##########################################################
-# PrometheusRule object for defining application 
+# PrometheusRule object for defining application
 # alerting rules
 ##########################################################
 prometheusRule:
   enabled: false
-  
+
   # PrometheusRule labels
   additionalLabels:
     # prometheus: stakater-workload-monitoring
@@ -784,7 +792,8 @@ prometheusRule:
     #       expr: up{namespace="test-app"} == 0
     #       for: 1m
     #       labels:
-    #         severity: critical  
+    #         severity: critical
+
 ##########################################################
 # External Secrets
 ##########################################################
@@ -798,29 +807,28 @@ externalSecret:
 
   # RefreshInterval is the amount of time before the values reading again from the SecretStore provider
   refreshInterval: "1m"
-  files:   
+  files:
     # mongodb:
     # # Data defines the connection between the Kubernetes Secret keys and the Provider data
     #   data:
-    #      mongo-password: 
+    #      mongo-password:
     #        remoteRef: 
     #           key: monodb
-    #           property: passowrd 
-    #   secretStore:                       
-    #      name: secret-store-name-2    # specify if value is other than default secretstore  
+    #           property: passowrd
+    #   secretStore:
+    #      name: secret-store-name-2    # specify if value is other than default secretstore
     #   labels:
     #      stakater.com/app: mongodb 
-    #   #     
+    #   #
     # postgres:
       ## Used to fetch all properties from the Provider key
       #   dataFrom:
       #     key: postgres
 
-
 ##########################################################
 # Network Policy
 ##########################################################
-networkPolicy: 
+networkPolicy:
   enabled: false
   additionalLabels:
   #   key: value
@@ -858,12 +866,12 @@ pdb:
 # maxUnavailable: 1
 
 ##########################################################
-# grafanaDashboard object for defining application 
+# grafanaDashboard object for defining application
 # Grafana Dashboard
 ##########################################################
 grafanaDashboard:
   enabled: false
-  
+
   # GrafanaDashboard additonal labels
   additionalLabels:
     # grafanaDashboard: grafana-operator
@@ -871,18 +879,18 @@ grafanaDashboard:
   # GrafanaDashboard annotations
   annotations:
     # key: value
-  
+
   # GrafanaDashboard contents
   # this includes pairs of dashboard name and associated json content
   # Accoroding to GrafanaDashboard behavior, if both url and json are specified then the GrafanaDashboard content will be updated with fetched content from url
   contents:
-    # dashboard-name-1: 
+    # dashboard-name-1:
     #   json: |-
     #     {
     #       "data"
     #     }
     #   url: http://hostname/path/to/file.json
-    # dashboard-name-2: 
+    # dashboard-name-2:
     #   json: |-
     #     {
     #       "data"
