@@ -73,10 +73,10 @@ deployment:
 
   # Init containers which runs before the app container
   initContainers:
-#      init-contaner:
-#        image: busybox
-#        imagePullPolicy: IfNotPresent
-#        command: ['/bin/sh']
+    #  init-contaner:
+    #    image: busybox
+    #    imagePullPolicy: IfNotPresent
+    #    command: ['/bin/sh']
 
   # Additional labels for Deployment
   additionalLabels:
@@ -107,37 +107,37 @@ deployment:
 
   # If want to mount Envs from configmap or secret
   envFrom:
-#    production-cm:
-#      type: configmap
-#      nameSuffix: my-configmap
-#    logging-config:
-#      type: configmap
-#      nameSuffix: your-configmap
-#    postgres-config:
-#      type: secret
-#      nameSuffix: postgres
+  #  production-cm:
+  #    type: configmap
+  #    nameSuffix: my-configmap
+  #  logging-config:
+  #    type: configmap
+  #    nameSuffix: your-configmap
+  #  postgres-config:
+  #    type: secret
+  #    nameSuffix: postgres
 
   # Environment variables to be passed to the app container
   env:
-#    ENVIRONMENT:
-#       value: "dev"
-#    FREQUENCY:
-#       valueFrom:
-#          configMapKeyRef:
-#             name: config
-#             key: frequency
+  #  ENVIRONMENT:
+  #     value: "dev"
+  #  FREQUENCY:
+  #     valueFrom:
+  #        configMapKeyRef:
+  #           name: config
+  #           key: frequency
   
   # Volumes to be added to the pod
   volumes:
-#     configmap-volume:
-#       configMap:
-#         name: '{{ template "application.name" . }}-configmap-nameSuffix'
-#     secret-volume:
-#       secret:
-#         secretName: secret-name
-#     persistent-volume-name:
-#       persistentVolumeClaim:
-#         claimName: claim-name
+    # configmap-volume:
+    #   configMap:
+    #     name: '{{ template "application.name" . }}-configmap-nameSuffix'
+    # secret-volume:
+    #   secret:
+    #     secretName: secret-name
+    # persistent-volume-name:
+    #   persistentVolumeClaim:
+    #     claimName: claim-name
 
   # Mount path for Volumes
   volumeMounts:
@@ -148,7 +148,7 @@ deployment:
     # volume-name-2:
     #    mountPath: path-2
 
-# priorityClassName defines the priority class for pod scheduling
+  # priorityClassName defines the priority class for pod scheduling
   priorityClassName:
 
   # Taint tolerations for nodes
@@ -246,11 +246,11 @@ deployment:
       memory: 128Mi
       cpu: 0.1
 
-#  Security Context at Container Level
+  #  Security Context at Container Level
   containerSecurityContext:
     readOnlyRootFilesystem: true
     runAsNonRoot: true
-  
+
   openshiftOAuthProxy:
     enabled: false
     port: 8080   # Port on which application is running inside container
@@ -333,16 +333,16 @@ service:
     # expose: "true"
 
   annotations:
-#     config.xposer.stakater.com/Domain: stakater.com
-#     config.xposer.stakater.com/IngressNameTemplate: '{{ "{{.Service}}-{{.Namespace}}" }}'
-#     config.xposer.stakater.com/IngressURLPath: /
-#     config.xposer.stakater.com/IngressURLTemplate: '{{ "{{.Service}}.{{.Namespace}}.{{.Domain}}" }}'
-#     service.alpha.openshift.io/serving-cert-secret-name: |
-#       '{{ template "application.name" . }}-tls'
-#     xposer.stakater.com/annotations: |-
-#       kubernetes.io/ingress.class: external-ingress
-#       ingress.kubernetes.io/rewrite-target: /
-#       ingress.kubernetes.io/force-ssl-redirect: true
+    # config.xposer.stakater.com/Domain: stakater.com
+    # config.xposer.stakater.com/IngressNameTemplate: '{{ "{{.Service}}-{{.Namespace}}" }}'
+    # config.xposer.stakater.com/IngressURLPath: /
+    # config.xposer.stakater.com/IngressURLTemplate: '{{ "{{.Service}}.{{.Namespace}}.{{.Domain}}" }}'
+    # service.alpha.openshift.io/serving-cert-secret-name: |
+    #   '{{ template "application.name" . }}-tls'
+    # xposer.stakater.com/annotations: |-
+    #   kubernetes.io/ingress.class: external-ingress
+    #   ingress.kubernetes.io/rewrite-target: /
+    #   ingress.kubernetes.io/force-ssl-redirect: true
 
   ports:
     - port: 8080
@@ -528,13 +528,13 @@ configMap:
   annotations: 
     # key: value
   files:
-    # nameSuffix of configMap
-#    code-config:
-#       key1: value1
-#       key2: value2
-#    dev-config:
-#       key1: value1
-#       key2: value2
+  #   nameSuffix of configMap
+  #  code-config:
+  #     key1: value1
+  #     key2: value2
+  #  dev-config:
+  #     key1: value1
+  #     key2: value2
 
 ##########################################################
 # SealedSecrets

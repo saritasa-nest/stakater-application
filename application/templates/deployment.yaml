@@ -90,8 +90,7 @@ spec:
 {{ toYaml .Values.deployment.nodeSelector | indent 8 }}
       {{- end }}
       {{- if .Values.deployment.priorityClassName }}
-      priorityClassName:
-{{ toYaml .Values.deployment.priorityClassName | indent 8 }}
+      priorityClassName: {{ . }}
       {{- end }}
       {{- if .Values.deployment.tolerations }}
       tolerations:
@@ -307,12 +306,8 @@ spec:
       hostNetwork: {{ .Values.deployment.hostNetwork }}
       {{- end }}
       terminationGracePeriodSeconds: {{ .Values.deployment.terminationGracePeriodSeconds }}
-      {{- if .Values.lifecycle }}
+      {{- if .Values.deployment.lifecycle }}
       lifecycle:
-        {{- if .Values.lifecycle.preStop }}
-        preStop:
-          exec:
-            command: {{ .Values.lifecycle.preStop.exec.command }}
-        {{- end }}
+        {{ toYaml .Values.deployment.lifecycle | indent 8 }}
       {{- end }}
 {{- end }}
