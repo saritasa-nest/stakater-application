@@ -1,0 +1,67 @@
+apiVersion: v1
+entries:
+  application:
+  - apiVersion: v2
+    created: "2024-05-28T13:26:44.224209289+03:00"
+    description: Generic helm chart for all kind of applications
+    digest: 4935fc647ca40e2b5feae2fd7e79f504ee8f67aa560bf21e6f7dd710514511a1
+    home: https://github.com/saritasa-nest/stakater-application
+    icon: https://github.com/stakater/ForecastleIcons/blob/master/stakater.png
+    keywords:
+    - java
+    - node
+    - dotnet
+    - kubernetes
+    - stakater
+    - application
+    maintainers:
+    - email: maxim.omelchenko@saritasa.com
+      name: rtest12
+    name: application
+    type: application
+    urls:
+    - application-3.0.2.tgz
+    version: 3.0.2
+  - apiVersion: v2
+    created: "2024-05-28T13:26:44.222029519+03:00"
+    description: Generic helm chart for all kind of applications
+    digest: dfbf8c237e77c73d2c14f2a1ef236078c143e7ef0a789ca85b91f2b923ff7f1a
+    home: https://github.com/saritasa-nest/stakater-application
+    icon: https://github.com/stakater/ForecastleIcons/blob/master/stakater.png
+    keywords:
+    - java
+    - node
+    - dotnet
+    - kubernetes
+    - stakater
+    - application
+    maintainers:
+    - email: maxim.omelchenko@saritasa.com
+      name: rtest12
+    name: application
+    type: application
+    urls:
+    - application-3.0.1.tgz
+    version: 3.0.1
+  - apiVersion: v2
+    created: "2024-05-28T13:26:44.218703782+03:00"
+    description: Generic helm chart for all kind of applications
+    digest: fd9cf3f3d92807d95447fbe37b17fc423f513ff3f81e63cbae80553f82eae50b
+    home: https://github.com/saritasa-nest/stakater-application
+    icon: https://github.com/stakater/ForecastleIcons/blob/master/stakater.png
+    keywords:
+    - java
+    - node
+    - dotnet
+    - kubernetes
+    - stakater
+    - application
+    maintainers:
+    - email: maxim.omelchenko@saritasa.com
+      name: rtest12
+    name: application
+    type: application
+    urls:
+    - application-3.0.0.tgz
+    version: 3.0.0
+generated: "2024-05-28T13:26:44.21638831+03:00"

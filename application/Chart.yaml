@@ -6,8 +6,7 @@ type: application
 
 # Helm chart Version
 
-version: 3.0.0
-
+version: 3.0.2
 
 keywords:
   - java
@@ -17,9 +16,9 @@ keywords:
   - stakater
   - application
 
-home: https://github.com/stakater/application
+home: https://github.com/saritasa-nest/stakater-application
 maintainers:
-- name: Stakater
-  email: hello@stakater.com
+- name: rtest12
+  email: maxim.omelchenko@saritasa.com
 
 icon: https://github.com/stakater/ForecastleIcons/blob/master/stakater.png
