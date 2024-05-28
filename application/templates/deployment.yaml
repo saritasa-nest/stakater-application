@@ -144,6 +144,10 @@ spec:
         image: {{ $image }}
 
         imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
+        {{- if .Values.deployment.lifecycle }}
+        lifecycle:
+{{ toYaml .Values.deployment.lifecycle | indent 10 }}
+        {{- end }}
         {{- if .Values.deployment.command }}
         command: {{- include "application.tplvalues.render" (dict "value" .Values.deployment.command "context" $) | nindent 12 }}
         {{- end }}
@@ -306,8 +310,4 @@ spec:
       hostNetwork: {{ .Values.deployment.hostNetwork }}
       {{- end }}
       terminationGracePeriodSeconds: {{ .Values.deployment.terminationGracePeriodSeconds }}
-      {{- if .Values.deployment.lifecycle }}
-      lifecycle:
-{{ toYaml .Values.deployment.lifecycle | indent 8 }}
-      {{- end }}
 {{- end }}
