@@ -24,6 +24,7 @@ cronJob:
   jobs:
     # db-migration:
     #   schedule: "* * * 8 *"
+    #   priorityClassName: high-priority
     #   env: 
     #     KEY:
     #       value: VALUE
@@ -149,7 +150,7 @@ deployment:
     #    mountPath: path-2
 
   # priorityClassName defines the priority class for pod scheduling
-  priorityClassName:
+  priorityClassName: ''
 
   # Taint tolerations for nodes
   tolerations:
@@ -523,9 +524,9 @@ rbac:
 ##########################################################
 configMap:
   enabled: false
-  additionalLabels: 
+  additionalLabels:
     # key: value
-  annotations: 
+  annotations:
     # key: value
   files:
   #   nameSuffix of configMap
