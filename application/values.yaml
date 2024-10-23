@@ -65,6 +65,7 @@ job:
     #     tag: v1.0.0
     #     digest: '' # if set to a non empty value, digest takes precedence on the tag
     #     imagePullPolicy: IfNotPresent
+    #   priorityClassName: high-priority
     #   command: ["/bin/bash"]
     #   args: ["-c","sleep 5000"]
     #   resources:

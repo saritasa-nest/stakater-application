@@ -1343,6 +1343,7 @@ job:
       image: 
         repository: docker.io/nginx
         tag: v1.0.0
+      priorityClassName: high-priority
       env: 
         KEY:
           value: VALUE

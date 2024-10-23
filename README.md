@@ -55,6 +55,7 @@ helm delete --namespace test my-application
 
 ### Deployment Parameters
 
+<<<<<<< Updated upstream
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | deployment.enabled | bool | `true` | Enable Deployment. |
@@ -392,6 +393,62 @@ helm delete --namespace test my-application
 | backup.ttl | string | `"1h0m0s"` | How long the Backup should be retained for. |
 | backup.includedResources | list | `nil` | List of resource types to include in the backup. |
 | backup.excludedResources | list | `nil` | List of resource types to exclude from the backup. |
+||||||| Stash base
+| Name                                | Description                                   |
+| ----------------------------------- | --------------------------------------------- |
+| `<name>.image.repository`           | Repository of container image of job          |
+| `<name>.image.tag`                  | Tag of container image of job                 |
+| `<name>.image.digest`               | Digest of container image of job              |
+| `<name>.image.imagePullPolicy`      | ImagePullPolicy of container image of job     |
+| `<name>.command`                    | Command of container of job                   |
+| `<name>.args`                       | Args of container of job                      |
+| `<name>.resources`                  | Resources of container of job                 |
+| `<name>.additionalLabels`           | Additional labels of job                      |
+| `<name>.annotations`                | Annotation of job                             |
+| `<name>.volumeMounts`               | Volume mounts  of job                         |
+| `<name>.volumes`                    | Volumes  of job                               |
+| `<name>.nodeSelector`               | Node selector of job                          |
+| `<name>.affinity`                   | Affinity of job                               |
+| `<name>.tolerations`                | Tolerations of job                            |
+| `<name>.restartPolicy`              | RestartPolicy of job                          |
+| `<name>.imagePullSecrets`           | ImagePullSecrets of job                       |
+| `<name>.activeDeadlineSeconds`      | ActiveDeadlineSeconds of job                  |
+| `<name>.backoffLimit`               | BackoffLimit of job                           |
+| `<name>.additionalPodAnnotations`   | Additional annotations of pod of job          |
+| `<name>.additionalPodLabels`        | Additional labels of pod of job               |
+| `<name>.topologySpreadConstraints`  | TopologySpreadConstraints of pod of job       |
+| `<name>.securityContext`            | SecurityContext of pod of job                 |
+=======
+| Name                                | Description                                   |
+| ----------------------------------- | --------------------------------------------- |
+| `<name>.image.repository`           | Repository of container image of job          |
+| `<name>.image.tag`                  | Tag of container image of job                 |
+| `<name>.image.digest`               | Digest of container image of job              |
+| `<name>.image.imagePullPolicy`      | ImagePullPolicy of container image of job     |
+| `<name>.command`                    | Command of container of job                   |
+| `<name>.args`                       | Args of container of job                      |
+| `<name>.priorityClassName`          | Defines the priority class of job             |
+| `<name>.resources`                  | Resources of container of job                 |
+| `<name>.additionalLabels`           | Additional labels of job                      |
+| `<name>.annotations`                | Annotation of job                             |
+| `<name>.volumeMounts`               | Volume mounts  of job                         |
+| `<name>.volumes`                    | Volumes  of job                               |
+| `<name>.nodeSelector`               | Node selector of job                          |
+| `<name>.affinity`                   | Affinity of job                               |
+| `<name>.tolerations`                | Tolerations of job                            |
+| `<name>.restartPolicy`              | RestartPolicy of job                          |
+| `<name>.imagePullSecrets`           | ImagePullSecrets of job                       |
+| `<name>.activeDeadlineSeconds`      | ActiveDeadlineSeconds of job                  |
+| `<name>.backoffLimit`               | BackoffLimit of job                           |
+| `<name>.parallelism`                | Parallelism of job                            |
+| `<name>.completions`                | Completions of job                            |
+| `<name>.ttlSecondsAfterFinished`    | ttlSecondsAfterFinished of job                |
+| `<name>.additionalPodAnnotations`   | Additional annotations of pod of job          |
+| `<name>.additionalPodLabels`        | Additional labels of pod of job               |
+| `<name>.topologySpreadConstraints`  | TopologySpreadConstraints of pod of job       |
+| `<name>.securityContext`            | SecurityContext of pod of job                 |
+| `<name>.lifecycle`                  | Container lifecycle management of job         |
+>>>>>>> Stashed changes
 
 ## Naming convention for ConfigMap, Secret, SealedSecret and ExternalSecret
 
