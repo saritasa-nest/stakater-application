@@ -2,7 +2,28 @@ apiVersion: v1
 entries:
   application:
   - apiVersion: v2
-    created: "2024-10-24T15:28:34.39398412+03:00"
+    created: "2024-10-24T16:18:30.617467429+03:00"
+    description: Generic helm chart for all kind of applications
+    digest: 1c50dff9a4142bc9678f6d7cccd05cc07d8084fa9dbcf0e7642ceb1e41a3551a
+    home: https://github.com/saritasa-nest/stakater-application
+    icon: https://github.com/stakater/ForecastleIcons/blob/master/stakater.png
+    keywords:
+    - java
+    - node
+    - dotnet
+    - kubernetes
+    - stakater
+    - application
+    maintainers:
+    - email: maxim.omelchenko@saritasa.com
+      name: Stakater
+    name: application
+    type: application
+    urls:
+    - application-5.1.52.tgz
+    version: 5.1.52
+  - apiVersion: v2
+    created: "2024-10-24T16:18:30.616168589+03:00"
     description: Generic helm chart for all kind of applications
     digest: 902bbd547b46cd42a67e0a7efc6376746b34d071b8a0021612bcd096dd58ad84
     home: https://github.com/saritasa-nest/stakater-application
@@ -23,7 +44,7 @@ entries:
     - application-5.1.51.tgz
     version: 5.1.51
   - apiVersion: v2
-    created: "2024-10-24T15:28:34.391869877+03:00"
+    created: "2024-10-24T16:18:30.614279579+03:00"
     description: Generic helm chart for all kind of applications
     digest: 24d962e202107903e6df23f34475e5ade4ab4bfeaa2831b4ea37f72731db12f2
     home: https://github.com/saritasa-nest/stakater-application
@@ -43,4 +64,4 @@ entries:
     urls:
     - application-5.1.50.tgz
     version: 5.1.50
-generated: "2024-10-24T15:28:34.390120079+03:00"
+generated: "2024-10-24T16:18:30.61254501+03:00"

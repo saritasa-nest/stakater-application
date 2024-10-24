@@ -54,46 +54,46 @@ spec:
       {{- end }}
       {{- end }}
       {{- with $job.initContainers }}
-      {{- range $name, $initContainer := $job.initContainers }}
+      {{- range $name, $initContainer := . }}
       initContainers:
       {{- range . }}
       - name: {{ $name }}
 
-        {{- $image := required (print "Undefined image repo for container '" $name "'") $job.initContainers.image.repository }}
-        {{- with $job.initContainers.image.tag    }} {{- $image = print $image ":" . }} {{- end }}
-        {{- with $job.initContainers.image.digest }} {{- $image = print $image "@" . }} {{- end }}
+        {{- $image := required (print "Undefined image repo for container '" $name "'") $initContainer.image.repository }}
+        {{- with $initContainer.image.tag    }} {{- $image = print $image ":" . }} {{- end }}
+        {{- with $initContainer.image.digest }} {{- $image = print $image "@" . }} {{- end }}
         image: {{ $image }}
 
-        {{- if $job.initContainers.image.imagePullPolicy }}
-        imagePullPolicy: {{ $job.initContainers.image.imagePullPolicy }}
+        {{- if $initContainer.image.imagePullPolicy }}
+        imagePullPolicy: {{ $initContainer.image.imagePullPolicy }}
         {{ end }}
-        {{- with $job.initContainers.env }}
+        {{- with .$initContainer.env }}
         env:
-        {{- range $key, $value := $job.initContainers.env }}
+        {{- range $key, $value := . }}
         - name: {{ include "application.tplvalues.render" ( dict "value" $key "context" $ ) }}
 {{ include "application.tplvalues.render" ( dict "value" $value "context" $ ) | indent 10 }}
         {{- end }}
         {{- end }}
-        {{- with $job.initContainers.lifecycle }}
+        {{- with $initContainer.lifecycle }}
         lifecycle:
 {{ toYaml . | indent 8 }}
         {{- end }}
-        {{- with $job.initContainers.envFrom }}
+        {{- with $initContainer.envFrom }}
         envFrom:
 {{ toYaml . | indent 8 }}
         {{- end }}
-        {{- if $job.initContainers.command }}
-        command: {{ $job.initContainers.command }}
+        {{- if $initContainer.command }}
+        command: {{ $initContainer.command }}
         {{- end }}
-        {{- with $job.args }}
+        {{- with $initContainer.args }}
         args:
 {{ toYaml . | indent 8 }}
           {{- end }}
-        {{- with $job.initContainers.resources }}
+        {{- with $initContainer.resources }}
         resources:
 {{ toYaml . | indent 10 }}
         {{- end }}
-        {{- with $job.initContainers.volumeMounts }}
+        {{- with $initContainer.volumeMounts }}
         volumeMounts:
 {{ toYaml . | indent 8 }}
         {{- end }}
