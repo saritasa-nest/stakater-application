@@ -9,10 +9,9 @@ apiVersion: batch/v1beta1
 kind: Job
 metadata:
   labels:
-  {{- include "application.labels" $ | nindent 4 }}
-{{- if $job.additionalLabels }}
-{{ $job.additionalLabels | indent 4 }}
-{{- end }}
+  {{- $appLabels := include "application.labels" $ | fromYaml }}
+  {{- $mergedLabels := merge $appLabels $job.additionalLabels }}
+  {{- toYaml $mergedLabels | nindent 4 }}
 {{- if $job.annotations }}
   annotations:
 {{ $job.annotations | indent 4 }}
@@ -22,6 +21,15 @@ metadata:
 spec:
   {{- with $job.activeDeadlineSeconds }}
   activeDeadlineSeconds: {{ . }}
+  {{- end }}
+  {{- with $job.parallelism }}
+  parallelism: {{ . }}
+  {{- end }}
+  {{- with $job.completions }}
+  completions: {{ . }}
+  {{- end }}
+  {{- with $job.ttlSecondsAfterFinished }}
+  ttlSecondsAfterFinished: {{ . }}
   {{- end }}
   {{- if not (kindIs "invalid" $job.backoffLimit) }}
   backoffLimit: {{ $job.backoffLimit }}
@@ -44,6 +52,55 @@ spec:
       serviceAccountName: {{ template "application.name" $ }}
       {{- end }}
       {{- end }}
+      {{- with $job.initContainers }}
+      initContainers:
+      {{- range $name, $initContainer := . }}
+      - name: {{ $name }}
+
+        {{- $image := required (print "Undefined image repo for container '" $name "'") $initContainer.image.repository }}
+        {{- with $initContainer.image.tag    }} {{- $image = print $image ":" . }} {{- end }}
+        {{- with $initContainer.image.digest }} {{- $image = print $image "@" . }} {{- end }}
+        image: {{ $image }}
+
+        {{- if $initContainer.image.imagePullPolicy }}
+        imagePullPolicy: {{ $initContainer.image.imagePullPolicy }}
+        {{ end }}
+        {{- with $initContainer.env }}
+        env:
+        {{- range $key, $value := . }}
+        - name: {{ include "application.tplvalues.render" ( dict "value" $key "context" $ ) }}
+{{ include "application.tplvalues.render" ( dict "value" $value "context" $ ) | indent 10 }}
+        {{- end }}
+        {{- end }}
+        {{- with $initContainer.lifecycle }}
+        lifecycle:
+{{ toYaml . | indent 8 }}
+        {{- end }}
+        {{- with $initContainer.envFrom }}
+        envFrom:
+{{ toYaml . | indent 8 }}
+        {{- end }}
+        {{- if $initContainer.command }}
+        command: {{ $initContainer.command }}
+        {{- end }}
+        {{- with $initContainer.args }}
+        args:
+{{ toYaml . | indent 8 }}
+        {{- end }}
+        {{- with $initContainer.securityContext }}
+        securityContext:
+{{ toYaml . | indent 10 }}
+        {{- end }}
+        {{- with $initContainer.resources }}
+        resources:
+{{ toYaml . | indent 10 }}
+        {{- end }}
+        {{- with $initContainer.volumeMounts }}
+        volumeMounts:
+{{ toYaml . | indent 8 }}
+        {{- end }}
+      {{- end }}
+      {{- end }}
       containers:
       - name: {{ $name }}
 
@@ -62,6 +119,10 @@ spec:
 {{ include "application.tplvalues.render" ( dict "value" $value "context" $ ) | indent 10 }}
         {{- end }}
         {{- end }}
+        {{- with $job.lifecycle }}
+        lifecycle:
+{{ toYaml . | indent 8 }}
+        {{- end }}
         {{- with $job.envFrom }}
         envFrom:
 {{ toYaml . | indent 8 }}
@@ -72,7 +133,11 @@ spec:
         {{- with $job.args }}
         args:
 {{ toYaml . | indent 8 }}
-          {{- end }}
+        {{- end }}
+        {{- with $job.containerSecurityContext }}
+        securityContext:
+{{ toYaml . | indent 10 }}
+        {{- end }}
         {{- with $job.resources }}
         resources:
 {{ toYaml . | indent 10 }}
@@ -83,6 +148,10 @@ spec:
         {{- end }}
       {{- with $job.nodeSelector }}
       nodeSelector:
+{{ toYaml . | indent 8 }}
+      {{- end }}
+      {{- with $job.priorityClassName }}
+      priorityClassName:
 {{ toYaml . | indent 8 }}
       {{- end }}
       {{- with $job.affinity }}

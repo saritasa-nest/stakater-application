@@ -5,6 +5,8 @@ All notable changes to this project will be documented here.
 
 ### Unreleased
 
+Add completions, parallelism, ttlSecondsAfterFinished, priorityClassName , initContainers and lifecycle in Job template
+
 #### Feature
 
 - Feature: Add Job template

@@ -57,6 +57,20 @@ job:
     #     helm.sh/hook: "pre-install,pre-upgrade"
     #     helm.sh/hook-weight: "-1"
     #     helm.sh/hook-delete-policy: "before-hook-creation"
+    #   additionalLabels:
+    #     migration: 'true'
+    #   parallelism: 1
+    #   completions: 1
+    #   backoffLimit: 5
+    #   activeDeadlineSeconds: 300
+    #   ttlSecondsAfterFinished: 60
+    #   restartPolicy: Never
+    #   containerSecurityContext:
+    #     readOnlyRootFilesystem: true
+    #   securityContext:
+    #     runAsNonRoot: true
+    #   priorityClassName: high-priority
+    #   initContainers: {}
     #   env:
     #     KEY:
     #       value: VALUE
@@ -69,8 +83,8 @@ job:
     #   args: ["-c","sleep 5000"]
     #   resources:
     #     requests:
-    #         memory: 5Gi
-    #         cpu: 1
+    #       memory: 5Gi
+    #       cpu: 1
 
 deployment:
   # -- (bool) Enable Deployment.
