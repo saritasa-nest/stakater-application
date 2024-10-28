@@ -68,3 +68,24 @@ reference:
   kind: Route
   name: {{ include "application.name" . }}
 {{- end }}
+
+{{/*
+Builds the image string differently depending on .image type.
+If .image is a map, it combines repository, tag, and digest.
+If it's a string, it uses the string directly.
+*/}}
+{{- define "job.image" -}}
+{{- $image := required "Undefined image repo for container" .image }}
+{{- if kindIs "map" .image }}
+{{- $image = required "Undefined image repo for container" .image.repository }}
+{{- if .image.tag }}
+{{- $image = printf "%s:%s" $image .image.tag }}
+{{- end }}
+{{- if .image.digest }}
+{{- $image = printf "%s@%s" $image .image.digest }}
+{{- end }}
+image: {{ $image }}
+{{- else }}
+image: {{ .image }}
+{{- end }}
+{{- end }}

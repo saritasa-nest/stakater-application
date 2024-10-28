@@ -31,7 +31,7 @@ tests:
               digest: matter
     asserts:
       - failedTemplate:
-          errorMessage: "Undefined image repo for container 'example'"
+          errorMessage: "Undefined image repo for container"
 
   - it: uses tag when defined
     set:
