@@ -12,9 +12,8 @@ metadata:
   {{- $appLabels := include "application.labels" $ | fromYaml }}
   {{- $mergedLabels := merge $appLabels $job.additionalLabels }}
   {{- toYaml $mergedLabels | nindent 4 }}
-{{- if $job.annotations }}
-  annotations:
-{{ $job.annotations | indent 4 }}
+{{- with $job.additionalPodAnnotations }}
+  annotations: {{- toYaml . | nindent 4 }}
 {{- end }}
   name: {{ $name }}
   namespace: {{ template "application.namespace" $ }}
@@ -37,12 +36,12 @@ spec:
   template:
     metadata:
       labels:
-      {{- include "application.labels" $ | nindent 8 }}
-      {{- with $job.additionalPodLabels }}
-      {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- include "application.labels" $ | nindent 10 }}
+        {{- with $job.additionalPodLabels }}
+        {{- toYaml . | nindent 10 }}
+        {{- end }}
       {{- with $job.additionalPodAnnotations }}
-      annotations: {{ toYaml . | nindent 8 }}
+      annotations: {{ toYaml . | nindent 10 }}
       {{- end }}
     spec:
       {{- if $.Values.rbac.enabled }}
@@ -62,8 +61,8 @@ spec:
         {{- with $initContainer.image.digest }} {{- $image = print $image "@" . }} {{- end }}
         image: {{ $image }}
 
-        {{- if $initContainer.image.imagePullPolicy }}
-        imagePullPolicy: {{ $initContainer.image.imagePullPolicy }}
+        {{- with $initContainer.imagePullPolicy }}
+        imagePullPolicy: {{ . }}
         {{ end }}
         {{- with $initContainer.env }}
         env:
@@ -72,20 +71,22 @@ spec:
 {{ include "application.tplvalues.render" ( dict "value" $value "context" $ ) | indent 10 }}
         {{- end }}
         {{- end }}
+
         {{- with $initContainer.lifecycle }}
         lifecycle:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
         {{- end }}
         {{- with $initContainer.envFrom }}
         envFrom:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
         {{- end }}
-        {{- if $initContainer.command }}
-        command: {{ $initContainer.command }}
+        {{- with $initContainer.command }}
+        command:
+{{ toYaml . | indent 10 }}
         {{- end }}
         {{- with $initContainer.args }}
         args:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
         {{- end }}
         {{- with $initContainer.securityContext }}
         securityContext:
@@ -97,7 +98,7 @@ spec:
         {{- end }}
         {{- with $initContainer.volumeMounts }}
         volumeMounts:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
         {{- end }}
       {{- end }}
       {{- end }}
@@ -109,8 +110,8 @@ spec:
         {{- with $job.image.digest }} {{- $image = print $image "@" . }} {{- end }}
         image: {{ $image }}
 
-        {{- if $job.image.imagePullPolicy }}
-        imagePullPolicy: {{ $job.image.imagePullPolicy }}
+        {{- with $job.image.imagePullPolicy }}
+        imagePullPolicy: {{ . }}
         {{ end }}
         {{- with $job.env }}
         env:
@@ -121,18 +122,19 @@ spec:
         {{- end }}
         {{- with $job.lifecycle }}
         lifecycle:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
         {{- end }}
         {{- with $job.envFrom }}
         envFrom:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
         {{- end }}
-        {{- if $job.command }}
-        command: {{ $job.command }}
+        {{- with $job.command }}
+        command:
+{{ toYaml . | indent 10 }}
         {{- end }}
         {{- with $job.args }}
         args:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
         {{- end }}
         {{- with $job.containerSecurityContext }}
         securityContext:
@@ -144,28 +146,28 @@ spec:
         {{- end }}
         {{- with $job.volumeMounts }}
         volumeMounts:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
         {{- end }}
       {{- with $job.nodeSelector }}
       nodeSelector:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
       {{- end }}
       {{- with $job.priorityClassName }}
       priorityClassName:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
       {{- end }}
       {{- with $job.affinity }}
       affinity:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
       {{- end }}
       {{- with $job.tolerations }}
-      tolerations: {{ toYaml . | nindent 8 }}
+      tolerations: {{ toYaml . | nindent 10 }}
       {{- end }}
       {{- with $job.topologySpreadConstraints }}
-      topologySpreadConstraints: {{ toYaml . | nindent 8 }}
+      topologySpreadConstraints: {{ toYaml . | nindent 10 }}
       {{- end }}
       {{- with $job.securityContext }}
-      securityContext: {{ toYaml . | nindent 8 }}
+      securityContext: {{ toYaml . | nindent 10 }}
       {{- end }}
       {{- if $job.restartPolicy}}
       restartPolicy: {{ $job.restartPolicy }}
@@ -174,11 +176,11 @@ spec:
       {{ end }}
       {{- with $job.imagePullSecrets}}
       imagePullSecrets: 
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
       {{ end }}
       {{- with $job.volumes }}
       volumes:
-{{ toYaml . | indent 8 }}
+{{ toYaml . | indent 10 }}
       {{- end }}
 {{- end }}
 {{- end }}
