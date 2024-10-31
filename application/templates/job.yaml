@@ -9,8 +9,9 @@ apiVersion: batch/v1beta1
 kind: Job
 metadata:
   labels:
-  {{- $appLabels := include "application.labels" $ | fromYaml }}
-  {{- $mergedLabels := merge $appLabels $job.additionalLabels }}
+  {{- $appLabels := include "application.labels" $ | fromYaml | default dict }}
+  {{- $additionalLabels := $job.additionalLabels | default dict }}
+  {{- $mergedLabels := merge $appLabels $additionalLabels }}
   {{- toYaml $mergedLabels | nindent 4 }}
 {{- with $job.additionalPodAnnotations }}
   annotations: {{- toYaml . | nindent 4 }}
