@@ -68,3 +68,13 @@ reference:
   kind: Route
   name: {{ include "application.name" . }}
 {{- end }}
+
+{{/*
+Create image name for job
+*/}}
+{{- define "job.image" -}}
+{{- $image := required (print "Undefined image repo for container '" .name "'") .image.repository }}
+{{- with .image.tag    }}{{- $image = print $image ":" . }}{{- end }}
+{{- with .image.digest }}{{- $image = print $image "@" . }}{{- end }}
+image: {{ $image }}
+{{- end }}
