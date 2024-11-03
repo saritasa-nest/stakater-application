@@ -61,36 +61,36 @@ spec:
         env:
         {{- range $key, $value := . }}
         - name: {{ include "application.tplvalues.render" ( dict "value" $key "context" $ ) }}
-{{ include "application.tplvalues.render" ( dict "value" $value "context" $ ) | indent 10 }}
+          {{ include "application.tplvalues.render" ( dict "value" $value "context" $ ) | nindent 10 }}
         {{- end }}
         {{- end }}
         {{- with $initContainer.lifecycle }}
         lifecycle:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $initContainer.envFrom }}
         envFrom:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $initContainer.command }}
         command:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $initContainer.args }}
         args:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $initContainer.securityContext }}
         securityContext:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $initContainer.resources }}
         resources:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $initContainer.volumeMounts }}
         volumeMounts:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
       {{- end }}
       {{- end }}
@@ -104,47 +104,47 @@ spec:
         env:
         {{- range $key, $value := $job.env }}
         - name: {{ include "application.tplvalues.render" ( dict "value" $key "context" $ ) }}
-{{ include "application.tplvalues.render" ( dict "value" $value "context" $ ) | indent 10 }}
+          {{ include "application.tplvalues.render" ( dict "value" $value "context" $ ) | nindent 10 }}
         {{- end }}
         {{- end }}
         {{- with $job.lifecycle }}
         lifecycle:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $job.envFrom }}
         envFrom:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $job.command }}
         command:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $job.args }}
         args:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $job.containerSecurityContext }}
         securityContext:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $job.resources }}
         resources:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
         {{- with $job.volumeMounts }}
         volumeMounts:
-{{ toYaml . | indent 10 }}
+          {{ toYaml . | nindent 10 }}
         {{- end }}
       {{- with $job.nodeSelector }}
       nodeSelector:
-{{ toYaml . | indent 8 }}
+        {{ toYaml . | nindent 8 }}
       {{- end }}
       {{- with $job.priorityClassName }}
       priorityClassName: {{ . }}
       {{- end }}
       {{- with $job.affinity }}
       affinity:
-{{ toYaml . | indent 8 }}
+        {{ toYaml . | nindent 8 }}
       {{- end }}
       {{- with $job.tolerations }}
       tolerations: {{ toYaml . | nindent 8 }}
@@ -162,11 +162,11 @@ spec:
       {{ end }}
       {{- with $job.imagePullSecrets }}
       imagePullSecrets:
-{{ toYaml . | indent 8 }}
-      {{ end }}
+        {{ toYaml . | nindent 8 }}
+      {{- end }}
       {{- with $job.volumes }}
       volumes:
-{{ toYaml . | indent 8 }}
+        {{ toYaml . | nindent 8 }}
       {{- end }}
 {{- end }}
 {{- end }}

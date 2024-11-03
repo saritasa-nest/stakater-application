@@ -70,11 +70,22 @@ reference:
 {{- end }}
 
 {{/*
-Create image name for job
+Builds the image string differently depending on .image type.
+If .image is a map, it combines repository, tag, and digest.
+If it's a string, it uses the string directly.
 */}}
 {{- define "job.image" -}}
-{{- $image := required (print "Undefined image repo for container '" .name "'") .image.repository }}
-{{- with .image.tag    }}{{- $image = print $image ":" . }}{{- end }}
-{{- with .image.digest }}{{- $image = print $image "@" . }}{{- end }}
+{{- $image := required "Undefined image repo for container" .image }}
+{{- if kindIs "map" .image }}
+{{- $image = required "Undefined image repo for container" .image.repository }}
+{{- if .image.tag }}
+{{- $image = printf "%s:%s" $image .image.tag }}
+{{- end }}
+{{- if .image.digest }}
+{{- $image = printf "%s@%s" $image .image.digest }}
+{{- end }}
 image: {{ $image }}
+{{- else }}
+image: {{ .image }}
+{{- end }}
 {{- end }}
