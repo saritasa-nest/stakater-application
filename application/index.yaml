@@ -1,0 +1,25 @@
+apiVersion: v1
+entries:
+  application:
+  - apiVersion: v2
+    created: "2025-06-30T16:37:43.292126225-05:00"
+    description: Generic helm chart for all kind of applications
+    digest: 0e0fa09365b086e62bce5a08299bcf110ea3cd8d2db053223e2183a4013f9c43
+    home: https://github.com/stakater/application
+    icon: https://github.com/stakater/ForecastleIcons/blob/master/stakater.png
+    keywords:
+    - java
+    - node
+    - dotnet
+    - kubernetes
+    - stakater
+    - application
+    maintainers:
+    - email: hello@stakater.com
+      name: Stakater
+    name: application
+    type: application
+    urls:
+    - https://saritasa-nest.github.io/stakater-application/application-6.2.2.tgz
+    version: 6.2.2
+generated: "2025-06-30T16:37:43.288158961-05:00"
