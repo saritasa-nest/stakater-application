@@ -58,7 +58,7 @@ jobs:
         fetch-depth: 0
     - name: Get next version
       id: get_next_version
-      uses: thenativeweb/get-next-version@29245d291b9f64a41d76f9b41683610bb4ffeccc # 2.6.3
+      uses: thenativeweb/get-next-version@d7a49b4d839e01b2152a3e742c06c9e3dc5976dd # 2.8.1
     - name: Show the next version
       run: |
         echo Has next version: ${{ steps.get_next_version.outputs.hasNextVersion }}
